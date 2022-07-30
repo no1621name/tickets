@@ -15,13 +15,14 @@
           <i class="large material-icons">flight_takeoff</i>
           <a href="#" class="brand-logo">Avia Tickets</a>
         </div>
-        <div class="favorites">
+        <div class="favourites">
           <a
             class="dropdown-trigger btn purple lighten-5 black-text"
             href="#"
             data-target="dropdown1"
+            data-test="favouritesTrigger"
             id="dropdownTrigger1"
-            >Favorites</a
+            >Favourites</a
           >
           <div id="dropdown1" class="dropdown-content">
 
@@ -29,7 +30,7 @@
         </div>
         <ul id="nav-mobile" class="right hide-on-med-and-down ml-auto">
           <li>
-            <div class="input-field col s12  currency-select">
+            <div class="input-field col s12  currency-select" data-test="currencySelect">
               <select id="cuurency">
                 <option value="USD">$ US Dollar</option>
                 <option value="EUR">€ Euro</option>
@@ -45,46 +46,50 @@
       <div class="row d-flex">
         <div class="col m6 mx-auto">
           <div class="card">
-            <form name="locationControls">
+            <form name="locationControls" data-test="mainForm">
               <div class="card-content">
                 <span class="card-title">Choose options</span>
-                 <div class="input-field s12">
+                 <div class="input-field field-origin s12">
                   <input
                     type="text"
                     id="autocomplete-origin"
                     class="autocomplete"
                     autocomplete="off"
                     placeholder="Origin"
+                    data-test="autocompleteOrigin"
                   >
                   <label for="autocomplete-origin"></label>
                 </div>
-                <div class="input-field s12">
+                <div class="input-field field-destination s12">
                   <input
                     type="text"
                     id="autocomplete-destination"
                     class="autocomplete"
                     autocomplete="off"
                     placeholder="Destination"
+                    data-test="autocompleteDestination"
                   >
                   <label for="autocomplete-destination"></label>
                 </div>
-                <div class="input-field s12">
+                <div class="input-field s12" data-test="datepickerDepartWrap">
                   <input
                     type="text"
                     class="datepicker"
                     id="datepicker-depart"
                     autocomplete="off"
                     placeholder="Depart date"
+                    data-test="datepickerDepartInput"
                   />
                   <label for="datepicker-depart"></label>
                 </div>
-                <div class="input-field s12">
+                <div class="input-field s12" data-test="datepickerReturnWrap">
                   <input
                     type="text"
                     class="datepicker"
                     id="datepicker-return"
                     autocomplete="off"
                     placeholder="Return date"
+                    data-test="datepickerReturnInput"
                   />
                   <label for="datepicker-return"></label>
                 </div>
@@ -94,6 +99,7 @@
                   class="btn waves-effect waves-light"
                   type="submit"
                   name="submit-form"
+                  data-test="submitButton"
                 >
                   Search
                   <i class="material-icons right">send</i>
@@ -102,6 +108,7 @@
                   class="btn waves-effect waves-light pink darken-3 ml-auto"
                   type="reset"
                   name="reset-form"
+                  data-test="resetButton"
                 >
                   Reset
                   <i class="material-icons right">cancel</i>
@@ -113,7 +120,7 @@
       </div>
     </div>
   </div>
-  <div class="tickets-sections">
+  <div class="tickets-sections" data-test="ticketsContainer">
     <div class="container">
       <div class="row">
       </div>

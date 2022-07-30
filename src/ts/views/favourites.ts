@@ -16,9 +16,10 @@ class FavouritesUI {
   renderTickets(btn: HTMLLinkElement): void{
     this.clearContainer();
 
+    const instance: M.Dropdown = M.Dropdown.getInstance(btn);
+
     if(!this.favouritesList.length){
       this.showEmptyMsg();
-      const instance: M.Dropdown = M.Dropdown.getInstance(btn);
       instance.close();
       instance.open();
       return;
@@ -33,7 +34,7 @@ class FavouritesUI {
 
     this.dropdown.insertAdjacentHTML('afterbegin', fragment);
 
-    const deleteFavouriteBtns: NodeList = document.querySelectorAll('.favorite-item-info .delete-favorite');
+    const deleteFavouriteBtns: NodeList = document.querySelectorAll('.favourite-item-info .delete-favourite');
     deleteFavouriteBtns.forEach((btn: HTMLLIElement) => {
       btn.addEventListener('click', (e: MouseEvent) => {
         if(e.target instanceof HTMLElement){
@@ -41,6 +42,10 @@ class FavouritesUI {
         }
       });
     });
+
+    instance.open();
+    instance.close();
+    instance.open();
   }
 
   clearContainer(): void{
@@ -54,7 +59,7 @@ class FavouritesUI {
 
   static emptyMsgTemplate(): string {
     return `
-    <div class="favorite-item favourite-empty-res-msg">
+    <div class="favourite-item favourite-empty-res-msg">
       Вы не добавили еще ни одного билета в избранное
     </div>`;
   }
@@ -70,22 +75,22 @@ class FavouritesUI {
       flight_number,
     } = ticket;
     return `
-    <div class="favorite-item  d-flex a-items-start">
+    <div class="favourite-item  d-flex a-items-start">
       <img
         src="${airline_logo}"
-        class="favorite-item-airline-img"
+        class="favourite-item-airline-img"
       />
-      <div class="favorite-item-info d-flex flex-column">
+      <div class="favourite-item-info d-flex flex-column">
         <div
-          class="favorite-item-destination d-flex a-items-center"
+          class="favourite-item-destination d-flex a-items-center"
         >
           <div class="d-flex a-items-center mr-auto">
-            <span class="favorite-item-city">${origin_name} </span>
+            <span class="favourite-item-city">${origin_name} </span>
             <i class="medium material-icons">flight_takeoff</i>
           </div>
           <div class="d-flex a-items-center">
             <i class="medium material-icons">flight_land</i>
-            <span class="favorite-item-city">${destination_name}</span>
+            <span class="favourite-item-city">${destination_name}</span>
           </div>
         </div>
         <div class="ticket-time-price d-flex a-items-center">
@@ -97,7 +102,7 @@ class FavouritesUI {
           <span class="ticket-flight-number">Номер рейса: ${flight_number}</span>
         </div>
         <a
-          class="waves-effect waves-light btn-small pink darken-3 delete-favorite ml-auto"
+          class="waves-effect waves-light btn-small pink darken-3 delete-favourite ml-auto"
           data-favouriteind="${ticketInd}"
           >Delete</a
         >

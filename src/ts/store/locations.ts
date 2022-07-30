@@ -1,21 +1,21 @@
 import api, {Api} from '../services/apiService';
 import { formatDate } from '../helpers/date';
 
-class Locations{
+export class Locations{
   private api: Api;
   private formatDate: formatDate = () => '';
   public countries: Countries = null;
   public cities: Cities = null;
   public airlines: Airlines = null;
   public shortCitiesList: ShortCitiesList = null;
-  public lastSearch: Tickets;
+  public lastSearch: Tickets = null;
 
   constructor(api: Api, helpers: any){
     this.api = api;
     this.formatDate = helpers.formatDate;
   }
 
-  async init(){
+  async init(): Promise<[Country[], City[], Airline[]]>{
     const res: [Country[], City[], Airline[]]= await Promise.all([
       this.api.countries(),
       this.api.cities(),
@@ -32,6 +32,8 @@ class Locations{
   }
 
   serializeCountries(countries: any[]): Countries {
+    if(!Array.isArray(countries) || !countries.length) { return {} }
+
     return countries.reduce((acc: object, country: any) => {
       Object.defineProperties(acc, {
         [country.code]: {
@@ -40,10 +42,12 @@ class Locations{
         }
       });
       return acc;
-    }, {})
+    }, {});
   }
 
   serializeCities(cities: any[]): Cities {
+    if(!Array.isArray(cities) || !cities.length) { return {} }
+
     return cities.reduce((acc: object, city: any) => {
       const county_name: string = this.getCountryNameByCode(city.country_code);
       const fullname: string = `${city.name||city.name_translations.en}, ${county_name}`;
@@ -59,16 +63,19 @@ class Locations{
         }
       });
       return acc;
-    }, {})
+    }, {});
   }
 
   serializeAirlines(airlines: any[]): Airlines{
+    if(!Array.isArray(airlines) || !airlines.length) { return {} }
+
     return airlines.reduce((acc: object, airline: any) => {
-      airline.logo = `http://pics.avs.io/200/200/${airline.code}.png`
-      airline.name = airline.name || airline.name_translations.en;
+      const airlineCopy = { ...airline }
+      airlineCopy.logo = `http://pics.avs.io/200/200/${airlineCopy.code}.png`
+      airlineCopy.name = airlineCopy.name || airlineCopy.name_translations.en;
       Object.defineProperties(acc, {
-        [airline.code]: {
-          value: airline,
+        [airlineCopy.code]: {
+          value: airlineCopy,
           enumerable: true,
         }
       });
@@ -77,6 +84,8 @@ class Locations{
   }
 
   createShortCitiesList(cities: Cities): ShortCitiesList{
+    if(!(cities instanceof Object)) { return {} }
+
     return Object.keys(cities).reduce((acc: any, cityCode: keyof Cities) => {
       Object.defineProperties(acc, {
         [cities[cityCode].fullname]: {
@@ -88,10 +97,9 @@ class Locations{
     }, {});
   }
 
-  async fetchTickets(params: ApiRequest){
+  async fetchTickets(params: ApiRequest): Promise<void>{
     const res: ApiResponce = await this.api.prices(params);
     this.lastSearch = this.serializeTickets(res.data);
-    console.log(this.lastSearch);
   }
 
   serializeTickets(tickets: SearchResults): Tickets{
@@ -112,7 +120,7 @@ class Locations{
     return this.countries[code].name;
   }
 
-  getCityCodeByFullname(fullname: string): string{
+  getCityCodeByFullname(fullname: keyof ShortCitiesList): string{
     return Object.values(this.cities).find((city: City) => city.fullname === fullname).code;
   }
 

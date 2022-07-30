@@ -1,0 +1,44 @@
+[
+  {
+    "country_code": "UA",
+    "code": "HRK",
+    "coordinates": {
+      "lat": 49.92078,
+      "lon": 36.281185
+    },
+    "name": "Харьков",
+    "time_zone": "Europe/Kiev",
+    "name_translations": {
+      "en": "Kharkov"
+    },
+    "cases": {
+      "da": "Харькову",
+      "pr": "Харькове",
+      "ro": "Харькова",
+      "su": "Харьков",
+      "tv": "Харьковом",
+      "vi": "в Харьков"
+    }
+  },
+  {
+    "country_code": "FR",
+    "code": "PAR",
+    "coordinates": {
+      "lat": 48.856613,
+      "lon": 2.352222
+    },
+    "name": "Париж",
+    "time_zone": "Europe/Paris",
+    "name_translations": {
+      "en": "Paris"
+    },
+    "cases": {
+      "da": "Парижу",
+      "pr": "Париже",
+      "ro": "Парижа",
+      "su": "Париж",
+      "tv": "Парижем",
+      "vi": "в Париж"
+    }
+  }
+]

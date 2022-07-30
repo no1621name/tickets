@@ -13,7 +13,6 @@ export class Api {
       const res: AxiosResponse = await axios.get(`${this.url}/countries`);
       return res.data;
     } catch(err) {
-      console.log(err);
       return Promise.reject(err);
     }
   }
@@ -23,7 +22,6 @@ export class Api {
       const res: AxiosResponse = await axios.get(`${this.url}/cities`);
       return res.data;
     } catch(err) {
-      console.log(err);
       return Promise.reject(err);
     }
   }
@@ -33,7 +31,6 @@ export class Api {
       const res: AxiosResponse = await axios.get(`${this.url}/airlines`);
       return res.data;
     } catch(err) {
-      console.log(err);
       return Promise.reject(err);
     }
   }
@@ -45,7 +42,6 @@ export class Api {
       });
       return res.data;
     } catch(err) {
-      console.log(err);
       return Promise.reject(err);
     }
   }
